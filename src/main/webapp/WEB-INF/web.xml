@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <!-- HelloServlet -->
+    <servlet>
+        <servlet-name>hello</servlet-name>
+        <servlet-class>es.unirioja.servlet.HelloServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>hello</servlet-name>
+        <url-pattern>/hello</url-pattern>
+    </servlet-mapping>
+    
+    
+    <!-- UsoCurioso2Servlet -->
+    <servlet>
+        <servlet-name>UsoCurioso2Servlet</servlet-name>
+        <servlet-class>es.unirioja.servlet.UsoCurioso2Servlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UsoCurioso2Servlet</servlet-name>
+        <url-pattern>/UsoCurioso2Servlet</url-pattern>
+    </servlet-mapping>
+    
+    <!-- UsoCurioso2Servlet -->
+    <servlet>
+        <servlet-name>AdminServlet</servlet-name>
+        <servlet-class>es.unirioja.servlet.AdminServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminServlet</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+    
+    <!-- Configuracion de seguridad -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Vistas de la aplicacion</web-resource-name>
+            <url-pattern>*.jsp</url-pattern>
+        </web-resource-collection>
+        <auth-constraint><!-- NINGUNA --></auth-constraint>
+    </security-constraint>
+   
+    
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>JSPs visibles</web-resource-name>
+            <url-pattern>/index.jsp</url-pattern>
+            <url-pattern>/errorLogin.jsp</url-pattern>
+        </web-resource-collection>
+    </security-constraint>
+    
+       
+    <security-constraint>
+        <display-name>Prohibir el acceso a los recursos salvo con GET</display-name>
+        <web-resource-collection>
+            <web-resource-name>metodos restringidos</web-resource-name>
+            <url-pattern>/UsoCurioso2Servlet</url-pattern>
+            <http-method>PUT</http-method>
+            <http-method>POST</http-method>
+            <http-method>DELETE</http-method>
+            <http-method>OPTIONS</http-method>
+            <http-method>TRACE</http-method>
+        </web-resource-collection>
+        <auth-constraint> <!-- NINGUNA --> </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Area de administracion</web-resource-name>
+            <url-pattern>/admin</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <!--    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>UserDatabase</realm-name>
+    </login-config>-->http://localhost:8080/Spike03h/
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/login.html</form-login-page>
+            <form-error-page>/errorLogin.jsp</form-error-page>
+        </form-login-config>
+    </login-config>
+
+
+
+
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>
